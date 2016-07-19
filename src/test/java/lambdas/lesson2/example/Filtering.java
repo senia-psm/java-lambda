@@ -11,6 +11,8 @@ import java.util.function.Predicate;
 
 import static org.junit.Assert.assertEquals;
 
+// https://github.com/senia-psm/java-lambda
+
 public class Filtering {
     public static class FilterUtil<T> {
         private final List<T> list;
@@ -73,8 +75,9 @@ public class Filtering {
                                 ))
                 );
 
-        final List<Employee> filteredList = new FilterUtil<>(employees)
-                .filter(e -> e.getPerson().getFirstName().equals("John"))
+        final FilterUtil<Employee> johns = new FilterUtil<>(employees)
+                .filter(e -> e.getPerson().getFirstName().equals("John"));
+        final List<Employee> filteredList = johns
                 .filter(Filtering::hasDevExperience)
                 .filter(Filtering::workedInEpamMoreThenOneYear)
                 .getList();
@@ -84,18 +87,37 @@ public class Filtering {
     }
 
     public static class LazyFilterUtil<T> {
+        private final List<T> list;
+        private final Predicate<T> condition;
+
+        public LazyFilterUtil(List<T> list, Predicate<T> condition) {
+            this.list = list;
+            this.condition = condition;
+        }
+
         public LazyFilterUtil(List<T> list) {
-            // TODO
+            this(list, null);
         }
 
         public List<T> force() {
-            // TODO
-            throw new UnsupportedOperationException();
+            if (condition == null) {
+                return list;
+            }
+
+            return new FilterUtil<>(list).filter(condition).getList();
         }
 
         private LazyFilterUtil<T> filter(Predicate<T> condition) {
-            // TODO
-            throw new UnsupportedOperationException();
+            Predicate<T> combined = combine(this.condition, condition);
+            return new LazyFilterUtil<T>(list, combined);
+        }
+
+        private Predicate<T> combine(Predicate<T> c1, Predicate<T> c2) {
+            if (c1 == null) {
+                return c2;
+            }
+
+            return c1.and(c2);
         }
     }
 
