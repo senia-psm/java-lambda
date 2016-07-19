@@ -17,6 +17,14 @@ public class Person {
         return lastName;
     }
 
+    private Person withFirstName(String firstName) {
+        return new Person(firstName, lastName);
+    }
+
+    public Person withLastName(String lastName) {
+        return new Person(firstName, lastName);
+    }
+
     public void print() {
         System.out.println(this.toString());
     }

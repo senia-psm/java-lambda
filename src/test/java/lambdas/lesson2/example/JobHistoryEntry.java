@@ -25,6 +25,18 @@ public class JobHistoryEntry {
         return employer;
     }
 
+    public JobHistoryEntry withDuration(int duration) {
+        return new JobHistoryEntry(duration, position, employer);
+    }
+
+    public JobHistoryEntry withPosition(String position) {
+        return new JobHistoryEntry(duration, position, employer);
+    }
+
+    public JobHistoryEntry withEmployer(String employer) {
+        return new JobHistoryEntry(duration, position, employer);
+    }
+
     @Override
     public String toString() {
         return "JobHistoryEntry{" +

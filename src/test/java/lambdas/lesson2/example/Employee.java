@@ -15,6 +15,14 @@ public class Employee {
         this.jobHistory = jobHistory;
     }
 
+    public Employee withPerson(Person p) {
+        return new Employee(p, jobHistory);
+    }
+
+    public Employee withJobHistory(List<JobHistoryEntry> h) {
+        return new Employee(person, h);
+    }
+
     public Person getPerson() {
         return person;
     }

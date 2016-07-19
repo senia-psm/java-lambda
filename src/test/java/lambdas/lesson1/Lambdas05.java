@@ -2,6 +2,7 @@ package lambdas.lesson1;
 
 import org.junit.Test;
 
+import java.io.Serializable;
 import java.util.function.Function;
 
 public class Lambdas05 {
@@ -60,8 +61,7 @@ public class Lambdas05 {
 
     @Test
     public void callConflict() {
-        final DoSmth printAndReturn = this::printAndReturn;
-        conflict(printAndReturn);
+        conflict((DoSmth & Serializable) this::printAndReturn);
     }
 
     private interface PersonFactory {
