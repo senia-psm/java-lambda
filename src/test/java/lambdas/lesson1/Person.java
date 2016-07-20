@@ -17,7 +17,7 @@ public class Person {
         return lastName;
     }
 
-    private Person withFirstName(String firstName) {
+    public Person withFirstName(String firstName) {
         return new Person(firstName, lastName);
     }
 
