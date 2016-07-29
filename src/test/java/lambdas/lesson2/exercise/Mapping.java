@@ -94,9 +94,10 @@ public class Mapping {
 
 
     private static class LazyMapHelperNext<T, R> {
-        private Function<T, R> funtion;
+        private final Function<T, R> funtion;
+        private final List<T> list;
 
-        public LazyMapHelperNext(List<T> list) {
+        public LazyMapHelperNext(List<T> list, Function<T, R> funtion) {
             // TODO
             throw new UnsupportedOperationException();
         }
@@ -116,8 +117,6 @@ public class Mapping {
     }
 
     private static class LazyMapHelper<T> {
-        // Можно потерять типизацию или использовать LazyMapHelperNext:
-        // private Function<?, T> function = null;
         public LazyMapHelper(List<T> list) {
             // TODO
             throw new UnsupportedOperationException();
@@ -128,14 +127,10 @@ public class Mapping {
             throw new UnsupportedOperationException();
         }
 
-        //public <R> LazyMapHelperNext<T, R> map(Function<T, R> f) {
-        public <R> LazyMapHelper<R> map(Function<T, R> f) {
+        public <R> LazyMapHelperNext<T, R> map(Function<T, R> f) {
             // TODO
             throw new UnsupportedOperationException();
         }
-
-        // TODO *
-        // public <R> LazyMapHelper<R> flatMap(Function<T, List<R>> f)
     }
 
     @Test
